@@ -13,6 +13,9 @@ Entries are lightly edited for spelling and grammar — your voice is kept intac
 ---
 
 <!-- ENTRIES BELOW — newest at the top -->
+## Entry — 2026-05-28 | Hours 2.17–2.67
+I spent another thirty minutes today trying to get my internship tracker website set up on GitHub Pages. This site matters for my internship because I need a reliable way to track my hours and log my experiences as I go. Getting Pages working—workflow, branch settings, and deployment—counts as real internship work too, not just a side project.
+
 ## Entry — 2026-05-28 | Hours 1–2.17
 Today is May 28th, and I logged one hour and ten minutes for the day. I focused on getting LexiQuest set up. I accessed the GitHub LexiQuest repo and successfully downloaded all the necessary project tools to run the app. Although I did not accomplish much beyond setup today, I did get MAUI running and was able to experiment with the app and see what it did.
 

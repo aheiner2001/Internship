@@ -41,6 +41,20 @@ A request to merge your branch into another (usually `main`). Reviewers can comm
 - **Clone:** Copy a repo to your local machine.
 - **Fork:** Copy a repo to your own GitHub account (used for open source contribution).
 
+### GitHub Pages
+Hosts static files (like `index.html`) from a repo as a public website. For a project repo, the URL is usually `https://<username>.github.io/<repo-name>/`.
+- **Encountered:** 2026-05-28 — deploying the internship tracker (`Internship` repo)
+- **Notes:** Use **GitHub Actions** as the Pages source when a workflow deploys the site; branch must match your default branch (`master` here). Add `.nojekyll` at the repo root so GitHub does not run Jekyll on plain HTML.
+
+### GitHub Actions (Pages deploy)
+Automated jobs defined in `.github/workflows/` (e.g. `static.yml`) that build and publish the site on push.
+- **Encountered:** 2026-05-28 — fixed workflow branch, cleaned deploy artifact, excluded build output from the repo
+- **Live site:** [aheiner2001.github.io/Internship](https://aheiner2001.github.io/Internship/)
+
+### .gitignore
+A file listing paths Git should not track or push—used here to keep **LexiQuest** (private) and `bin/`/`obj/` build folders out of the public tracker repo.
+- **Encountered:** 2026-05-28 — before pushing tracker changes without publishing LexiQuest source
+
 ---
 
 ## Google Antigravity CLI
