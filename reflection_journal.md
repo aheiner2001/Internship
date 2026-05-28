@@ -13,6 +13,9 @@ Entries are lightly edited for spelling and grammar — your voice is kept intac
 ---
 
 <!-- ENTRIES BELOW — newest at the top -->
+## Entry — 2026-05-28 | Hours 1–2.17
+Today is May 28th, and I logged one hour and ten minutes for the day. I focused on getting LexiQuest set up. I accessed the GitHub LexiQuest repo and successfully downloaded all the necessary project tools to run the app. Although I did not accomplish much beyond setup today, I did get MAUI running and was able to experiment with the app and see what it did.
+
 ## Entry — 2026-05-27 | Hours 0-1
 Today is May 27th, and I just logged one hour. Today I was able to get into a few things. I had to sign up for some developer programs, and I installed Antigravity. I was a little confused at first, but I realized the right thing I wanted was the CLI. Now I can access it by typing `agy` into the terminal, and then it loads me in so I can manage stuff like that.
 

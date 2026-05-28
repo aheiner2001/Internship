@@ -19,6 +19,16 @@ Topics are organized by tool or technology. Add new entries as you learn.
 - **Encountered:** Initial setup week
 - **Repo:** [LexiQuest](https://github.com/degasolutions/LexiQuest)
 
+### LexiQuest
+Internship project repo — a MAUI app built by Dega Solutions. Used as the main codebase for hands-on learning.
+- **Encountered:** 2026-05-28 — cloned/accessed on GitHub and ran locally
+- **Repo:** [degasolutions/LexiQuest](https://github.com/degasolutions/LexiQuest)
+
+### MAUI workload & project tools
+Visual Studio (or the .NET SDK) needs the **.NET MAUI** workload and related tooling installed before you can build and run a MAUI solution. “Project tools” here means the SDK, workloads, and dependencies the solution expects—not the app UI itself.
+- **Encountered:** 2026-05-28 — installed/downloaded what LexiQuest needed, then got the app running
+- **Notes:** First successful local run; spent time exploring the running app
+
 ---
 
 ## Git & GitHub

@@ -1,0 +1,10 @@
+# Private internship project — keep out of this public tracker repo
+LexiQuest/
+
+# .NET build output
+**/bin/
+**/obj/
+
+# OS / editor
+.DS_Store
+.antigravitycli/
