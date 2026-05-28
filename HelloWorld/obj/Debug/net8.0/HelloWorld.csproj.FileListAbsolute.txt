@@ -1,0 +1,15 @@
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/bin/Debug/net8.0/HelloWorld
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/bin/Debug/net8.0/HelloWorld.deps.json
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/bin/Debug/net8.0/HelloWorld.runtimeconfig.json
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/bin/Debug/net8.0/HelloWorld.dll
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/bin/Debug/net8.0/HelloWorld.pdb
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/HelloWorld.GeneratedMSBuildEditorConfig.editorconfig
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/HelloWorld.AssemblyInfoInputs.cache
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/HelloWorld.AssemblyInfo.cs
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/HelloWorld.csproj.CoreCompileInputs.cache
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/HelloWorld.sourcelink.json
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/HelloWorld.dll
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/refint/HelloWorld.dll
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/HelloWorld.pdb
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/HelloWorld.genruntimeconfig.cache
+/Users/aaronheiner/Documents/SPRING 2026/Internship/HelloWorld/obj/Debug/net8.0/ref/HelloWorld.dll

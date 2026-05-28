@@ -1,7 +1,7 @@
 # Internship Tracker
 
 **Goal:** 200 hours | **Started:** 2025  
-**Progress:** `░░░░░░░░░░░░░░░░░░░░` 0 / 200 hours
+**Progress:** `░░░░░░░░░░░░░░░░░░░░` 1 / 200 hours
 
 ---
 
