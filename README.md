@@ -7,10 +7,13 @@
 
 ## Web tracker (GitHub Pages)
 
-Open **[index.html](./index.html)** locally, or enable GitHub Pages to use the live dashboard:
+**Live site:** [https://aheiner2001.github.io/Internship/](https://aheiner2001.github.io/Internship/)
 
-1. On GitHub: **Settings → Pages → Build and deployment → Source:** Deploy from branch `main`, folder **`/ (root)`**.
-2. Your site URL will be `https://<username>.github.io/<repo-name>/` (the `index.html` loads automatically).
+Open **[index.html](./index.html)** locally, or use GitHub Pages:
+
+1. **Settings → Pages → Build and deployment → Source:** choose **GitHub Actions** (not “Deploy from branch”).
+2. Push to the **`master`** branch — the workflow [`.github/workflows/static.yml`](./.github/workflows/static.yml) deploys `index.html` automatically.
+3. After a green run under **Actions**, wait 1–2 minutes, then open the URL above.
 
 The dashboard keeps hours in **browser localStorage**, syncs from **`hours.csv`** on load, and lets you **download or copy CSV** to commit back to this repo as your backup.
 

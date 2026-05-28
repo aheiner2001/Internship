@@ -926,7 +926,7 @@
           const repoPath = window.location.pathname.replace(/\/$/, "").split("/").filter(Boolean);
           const repoName = repoPath[repoPath.length - 1] || "";
           const user = window.location.hostname.replace(".github.io", "");
-          a.href = `https://github.com/${user}/${repoName}/blob/main/${encodeURI(f.path)}`;
+          a.href = `https://github.com/${user}/${repoName}/blob/master/${encodeURI(f.path)}`;
           a.target = "_blank";
         } else {
           a.href = new URL(f.path, base).href;
