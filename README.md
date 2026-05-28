@@ -5,13 +5,25 @@
 
 ---
 
+## Web tracker (GitHub Pages)
+
+Open **[index.html](./index.html)** locally, or enable GitHub Pages to use the live dashboard:
+
+1. On GitHub: **Settings → Pages → Build and deployment → Source:** Deploy from branch `main`, folder **`/ (root)`**.
+2. Your site URL will be `https://<username>.github.io/<repo-name>/` (the `index.html` loads automatically).
+
+The dashboard keeps hours in **browser localStorage**, syncs from **`hours.csv`** on load, and lets you **download or copy CSV** to commit back to this repo as your backup.
+
+---
+
 ## Quick Links
 
 | File | Purpose |
 |------|---------|
-| [hours.csv](./hours.csv) | Hour log with running total |
-| [Reflection Journal](./journal/reflection_journal.md) | Personal reflections, cleaned up |
-| [Learning Dictionary](./learning/learning_dictionary.md) | Concepts & tools by technology |
+| [Web dashboard](./index.html) | Stopwatch, weekly goals, milestones, hour log |
+| [hours.csv](./hours.csv) | Hour log with running total (repo backup) |
+| [Reflection Journal](./reflection_journal.md) | Personal reflections, cleaned up |
+| [Learning Dictionary](./learning_dictionary.md) | Concepts & tools by technology |
 | [Agent Instructions](./AGENT_INSTRUCTIONS.md) | How to use this system with Claude |
 
 ---
