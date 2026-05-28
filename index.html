@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internship Tracker — 200 Hours</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --surface-2: #243044;
+      --border: #2d3f56;
+      --text: #e8edf4;
+      --muted: #8b9cb3;
+      --accent: #3d9cf5;
+      --accent-dim: #2563a8;
+      --success: #34d399;
+      --warning: #fbbf24;
+      --danger: #f87171;
+      --milestone: #a78bfa;
+      --radius: 12px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(61, 156, 245, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(167, 139, 250, 0.08), transparent);
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 0.35rem;
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 720px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.35rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* Progress */
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-head .total {
+      font-size: 2rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress-head .total span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .bar-track {
+      height: 14px;
+      background: var(--surface-2);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+      border-radius: 999px;
+      transition: width 0.4s ease;
+      min-width: 2px;
+    }
+
+    .milestones-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.65rem;
+      position: relative;
+      padding: 0 2px;
+    }
+
+    .milestone-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 2px solid var(--border);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .milestone-dot.done {
+      background: var(--milestone);
+      border-color: var(--milestone);
+      box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
+    }
+
+    .milestone-dot.current {
+      border-color: var(--accent);
+      background: var(--accent);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(61, 156, 245, 0.5); }
+      50% { box-shadow: 0 0 0 6px rgba(61, 156, 245, 0); }
+    }
+
+    .milestone-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+
+    /* Stopwatch */
+    .timer-display {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 2.75rem;
+      font-weight: 500;
+      text-align: center;
+      letter-spacing: 0.05em;
+      margin: 0.5rem 0 1rem;
+      color: var(--accent);
+    }
+
+    .timer-display.running { color: var(--success); }
+
+    .timer-input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .timer-input::placeholder { color: var(--muted); }
+
+    .btn-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.15s;
+    }
+
+    button:active { transform: scale(0.98); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .btn-primary:hover:not(:disabled) { background: #5aadf7; }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover:not(:disabled) { background: var(--border); }
+
+    .btn-danger {
+      background: rgba(248, 113, 113, 0.15);
+      color: var(--danger);
+      border: 1px solid rgba(248, 113, 113, 0.35);
+    }
+
+    .btn-success {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    /* Weekly */
+    .weekly-stats {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .weekly-stats div strong {
+      display: block;
+      font-size: 1.35rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .weekly-stats div span {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .goal-input-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .goal-input-row input {
+      width: 4rem;
+      padding: 0.35rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: inherit;
+    }
+
+    /* Manual log */
+    .form-row {
+      display: grid;
+      gap: 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+
+    @media (min-width: 520px) {
+      .form-row.inline { grid-template-columns: 120px 80px 1fr auto; align-items: end; }
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.55rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface-2);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.875rem;
+    }
+
+    textarea { resize: vertical; min-height: 2.5rem; }
+
+    /* Log table */
+    .log-table-wrap {
+      overflow-x: auto;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+    }
+
+    td.hours { font-family: "JetBrains Mono", monospace; font-weight: 500; }
+    td.actions { white-space: nowrap; }
+
+    .btn-icon {
+      padding: 0.25rem 0.45rem;
+      font-size: 0.7rem;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid transparent;
+    }
+
+    .btn-icon:hover { color: var(--danger); border-color: var(--border); }
+
+    /* Links */
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .links-grid a {
+      display: block;
+      padding: 0.6rem 0.75rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+
+    .links-grid a:hover { background: var(--border); }
+
+    /* Backup banner */
+    .sync-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: rgba(61, 156, 245, 0.1);
+      border: 1px solid rgba(61, 156, 245, 0.25);
+      border-radius: var(--radius);
+      margin-bottom: 1.25rem;
+      font-size: 0.8rem;
+    }
+
+    .sync-banner.warn {
+      background: rgba(251, 191, 36, 0.1);
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+
+    .sync-banner strong { color: var(--text); }
+
+    .sync-status { color: var(--muted); }
+
+    .checkpoint-list {
+      list-style: none;
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .checkpoint-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .checkpoint-list li:last-child { border-bottom: none; }
+
+    .checkpoint-list .badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      min-width: 4.5rem;
+      text-align: center;
+    }
+
+    .badge.done { background: rgba(52, 211, 153, 0.2); color: var(--success); }
+    .badge.active { background: rgba(61, 156, 245, 0.2); color: var(--accent); }
+    .badge.locked { background: var(--surface-2); color: var(--muted); }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Internship Tracker</h1>
+      <p>200-hour goal · Hours saved in your browser · Back up to <code style="color:var(--accent)">hours.csv</code> in this repo</p>
+    </header>
+
+    <div id="syncBanner" class="sync-banner" hidden>
+      <div>
+        <strong id="syncTitle">Sync</strong>
+        <div class="sync-status" id="syncStatus"></div>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn-secondary" id="btnImportCsv">Import from repo</button>
+        <button type="button" class="btn-primary" id="btnExportCsv">Download hours.csv</button>
+        <button type="button" class="btn-secondary" id="btnCopyCsv">Copy CSV</button>
+      </div>
+    </div>
+
+    <section class="card" style="margin-bottom:1.25rem">
+      <h2>Overall progress</h2>
+      <div class="progress-head">
+        <div class="total" id="totalDisplay">0.0 <span>/ 200 hrs</span></div>
+        <div id="remainingDisplay" style="color:var(--muted);font-size:0.9rem">200.0 hours remaining</div>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" id="mainProgressBar" style="width:0%"></div>
+      </div>
+      <div class="milestones-row" id="milestoneDots"></div>
+      <div class="milestone-labels">
+        <span>0</span><span>50</span><span>100</span><span>150</span><span>200</span>
+      </div>
+    </section>
+
+    <div class="grid grid-2">
+      <section class="card">
+        <h2>Clock in — stopwatch</h2>
+        <div class="timer-display" id="timerDisplay">00:00:00</div>
+        <input type="text" class="timer-input" id="timerDescription" placeholder="What are you working on? (required to save)" />
+        <div class="btn-row">
+          <button type="button" class="btn-success" id="btnClockIn">Clock in</button>
+          <button type="button" class="btn-secondary" id="btnPause" disabled>Pause</button>
+          <button type="button" class="btn-danger" id="btnClockOut" disabled>Clock out & log</button>
+        </div>
+        <p style="margin-top:0.75rem;font-size:0.75rem;color:var(--muted)" id="timerStateHint">Not clocked in</p>
+      </section>
+
+      <section class="card">
+        <h2>This week</h2>
+        <div class="weekly-stats">
+          <div>
+            <span>Logged this week</span>
+            <strong id="weekHours">0.0</strong>
+          </div>
+          <div>
+            <span>Weekly goal</span>
+            <strong id="weekGoalDisplay">10</strong>
+          </div>
+          <div>
+            <span>Streak toward goal</span>
+            <strong id="weekPercent">0%</strong>
+          </div>
+        </div>
+        <div class="bar-track" style="height:8px">
+          <div class="bar-fill" id="weekProgressBar" style="width:0%;background:linear-gradient(90deg,#059669,var(--success))"></div>
+        </div>
+        <p style="font-size:0.75rem;color:var(--muted);margin-top:0.5rem" id="weekRangeLabel"></p>
+        <div class="goal-input-row">
+          <label for="weeklyGoalInput">Weekly goal (hours):</label>
+          <input type="number" id="weeklyGoalInput" min="1" max="80" step="0.5" value="10" />
+          <button type="button" class="btn-secondary" id="btnSaveGoal" style="padding:0.35rem 0.6rem;font-size:0.75rem">Save</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:1.25rem">
+      <section class="card">
+        <h2>Log hours manually</h2>
+        <div class="form-row inline">
+          <div>
+            <label for="manualDate">Date</label>
+            <input type="date" id="manualDate" />
+          </div>
+          <div>
+            <label for="manualHours">Hours</label>
+            <input type="number" id="manualHours" min="0.25" max="24" step="0.25" value="1" />
+          </div>
+          <div>
+            <label for="manualDesc">Description</label>
+            <input type="text" id="manualDesc" placeholder="What did you do?" />
+          </div>
+          <div>
+            <label>&nbsp;</label>
+            <button type="button" class="btn-primary" id="btnManualLog" style="width:100%">Add</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>25-hour checkpoints</h2>
+        <ul class="checkpoint-list" id="checkpointList"></ul>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:1.25rem">
+      <h2>Hour log</h2>
+      <div class="log-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Hours</th>
+              <th>Description</th>
+              <th>Cumulative</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="logTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:1.25rem">
+      <h2>Repository files</h2>
+      <nav class="links-grid" id="repoLinks"></nav>
+    </section>
+
+    <footer>
+      Data stored in <code>localStorage</code> · Export <code>hours.csv</code> and commit to GitHub to keep a repo backup
+    </footer>
+  </div>
+
+  <script>
+    const GOAL_HOURS = 200;
+    const MILESTONES = [0, 25, 50, 75, 100, 125, 150, 175, 200];
+    const STORAGE_KEY = "internshipTracker_v1";
+
+    const REPO_FILES = [
+      { label: "README", path: "README.md" },
+      { label: "hours.csv", path: "hours.csv" },
+      { label: "Reflection journal", path: "reflection_journal.md" },
+      { label: "Learning dictionary", path: "learning_dictionary.md" },
+      { label: "Agent instructions", path: "AGENT_INSTRUCTIONS.md" },
+      { label: "What's next", path: "what's next.md" },
+      { label: "Milestone 0–25", path: "milestones/hours_0-25/summary.md" },
+      { label: "Milestone 25–50", path: "milestones/hours_25-50/summary.md" },
+      { label: "Milestone 50–75", path: "milestones/hours_50-75/summary.md" },
+      { label: "Milestone 75–100", path: "milestones/hours_75-100/summary.md" },
+    ];
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return defaultState();
+        const parsed = JSON.parse(raw);
+        return { ...defaultState(), ...parsed, entries: parsed.entries || [] };
+      } catch {
+        return defaultState();
+      }
+    }
+
+    function defaultState() {
+      return {
+        entries: [],
+        weeklyGoalHours: 10,
+        timer: { running: false, paused: false, startedAt: null, accumulatedMs: 0, description: "" },
+        lastRepoSync: null,
+        repoEntryCount: 0,
+      };
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    let state = loadState();
+    let tickInterval = null;
+
+    function roundHours(n) {
+      return Math.round(n * 100) / 100;
+    }
+
+    function totalHours() {
+      return roundHours(state.entries.reduce((s, e) => s + Number(e.hours), 0));
+    }
+
+    function sortEntries(entries) {
+      return [...entries].sort((a, b) => {
+        const d = a.date.localeCompare(b.date);
+        if (d !== 0) return d;
+        return (a.id || "").localeCompare(b.id || "");
+      });
+    }
+
+    function withCumulative(entries) {
+      let cum = 0;
+      return sortEntries(entries).map((e) => {
+        cum = roundHours(cum + Number(e.hours));
+        return { ...e, cumulative: cum };
+      });
+    }
+
+    function addEntry(date, hours, description, source = "manual") {
+      const h = roundHours(Number(hours));
+      if (!h || h <= 0) return false;
+      const desc = (description || "").trim();
+      if (!desc) return false;
+      state.entries.push({
+        id: crypto.randomUUID(),
+        date,
+        hours: h,
+        description: desc,
+        source,
+        createdAt: new Date().toISOString(),
+      });
+      saveState(state);
+      render();
+      return true;
+    }
+
+    function deleteEntry(id) {
+      state.entries = state.entries.filter((e) => e.id !== id);
+      saveState(state);
+      render();
+    }
+
+    function parseCsv(text) {
+      const lines = text.trim().split(/\r?\n/);
+      if (lines.length < 2) return [];
+      const rows = [];
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        const parts = splitCsvLine(line);
+        if (parts.length < 3) continue;
+        const [date, hours, description] = parts;
+        const cum = parts[3] ? parseFloat(parts[3]) : null;
+        rows.push({
+          id: `csv-${i}-${date}-${hours}`,
+          date: date.trim(),
+          hours: roundHours(parseFloat(hours)),
+          description: (description || "").trim(),
+          source: "repo",
+          cumulative: cum,
+        });
+      }
+      return rows;
+    }
+
+    function splitCsvLine(line) {
+      const result = [];
+      let cur = "";
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const c = line[i];
+        if (c === '"') {
+          inQuotes = !inQuotes;
+          continue;
+        }
+        if (c === "," && !inQuotes) {
+          result.push(cur);
+          cur = "";
+          continue;
+        }
+        cur += c;
+      }
+      result.push(cur);
+      return result;
+    }
+
+    function entriesToCsv(entries) {
+      const sorted = withCumulative(entries);
+      const lines = ["Date,Hours,Description,Cumulative Total"];
+      for (const e of sorted) {
+        const desc = e.description.includes(",") ? `"${e.description.replace(/"/g, '""')}"` : e.description;
+        lines.push(`${e.date},${e.hours},${desc},${e.cumulative}`);
+      }
+      return lines.join("\n") + "\n";
+    }
+
+    function mergeEntries(local, remote) {
+      const key = (e) => `${e.date}|${e.hours}|${e.description.toLowerCase()}`;
+      const map = new Map();
+      for (const e of remote) map.set(key(e), { ...e, id: e.id || crypto.randomUUID() });
+      for (const e of local) {
+        const k = key(e);
+        if (!map.has(k)) map.set(k, e);
+      }
+      return Array.from(map.values());
+    }
+
+    async function fetchRepoCsv() {
+      const url = new URL("hours.csv", window.location.href).href;
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error(`Could not load hours.csv (${res.status})`);
+      return res.text();
+    }
+
+    async function importFromRepo() {
+      try {
+        const text = await fetchRepoCsv();
+        const remote = parseCsv(text);
+        state.entries = mergeEntries(state.entries, remote);
+        state.lastRepoSync = new Date().toISOString();
+        state.repoEntryCount = remote.length;
+        saveState(state);
+        showSyncBanner(`Merged ${remote.length} row(s) from repo. Local total: ${totalHours()} hrs.`, false);
+        render();
+      } catch (err) {
+        showSyncBanner(err.message + " — using local data only.", true);
+      }
+    }
+
+    function showSyncBanner(msg, warn) {
+      const el = document.getElementById("syncBanner");
+      el.hidden = false;
+      el.classList.toggle("warn", !!warn);
+      document.getElementById("syncStatus").textContent = msg;
+      document.getElementById("syncTitle").textContent = warn ? "Repo sync issue" : "Repo backup";
+    }
+
+    function downloadCsv() {
+      const csv = entriesToCsv(state.entries);
+      const blob = new Blob([csv], { type: "text/csv" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "hours.csv";
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showSyncBanner("Downloaded hours.csv — commit this file to your repo to back up.", false);
+    }
+
+    async function copyCsv() {
+      const csv = entriesToCsv(state.entries);
+      await navigator.clipboard.writeText(csv);
+      showSyncBanner("CSV copied to clipboard. Paste into hours.csv or tell your agent to update it.", false);
+    }
+
+    function getWeekBounds(date = new Date()) {
+      const d = new Date(date);
+      const day = d.getDay();
+      const diff = day === 0 ? -6 : 1 - day;
+      const monday = new Date(d);
+      monday.setHours(0, 0, 0, 0);
+      monday.setDate(d.getDate() + diff);
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+      return { monday, sunday };
+    }
+
+    function formatDateISO(d) {
+      return d.toISOString().slice(0, 10);
+    }
+
+    function hoursThisWeek() {
+      const { monday, sunday } = getWeekBounds();
+      const start = formatDateISO(monday);
+      const end = formatDateISO(sunday);
+      return roundHours(
+        state.entries
+          .filter((e) => e.date >= start && e.date <= end)
+          .reduce((s, e) => s + Number(e.hours), 0)
+      );
+    }
+
+    function currentMilestoneIndex(total) {
+      for (let i = MILESTONES.length - 1; i >= 0; i--) {
+        if (total >= MILESTONES[i]) return i;
+      }
+      return 0;
+    }
+
+    function renderMilestones(total) {
+      const dots = document.getElementById("milestoneDots");
+      dots.innerHTML = "";
+      const mi = currentMilestoneIndex(total);
+      for (let i = 0; i <= 8; i++) {
+        const dot = document.createElement("div");
+        dot.className = "milestone-dot";
+        const threshold = i * 25;
+        if (total >= threshold && threshold > 0) dot.classList.add("done");
+        if (mi === i || (mi === 0 && i === 0 && total < 25)) dot.classList.add("current");
+        dots.appendChild(dot);
+      }
+
+      const list = document.getElementById("checkpointList");
+      list.innerHTML = "";
+      const ranges = [
+        [0, 25, "hours_0-25"],
+        [25, 50, "hours_25-50"],
+        [50, 75, "hours_50-75"],
+        [75, 100, "hours_75-100"],
+        [100, 125, "hours_100-125"],
+        [125, 150, "hours_125-150"],
+        [150, 175, "hours_150-175"],
+        [175, 200, "hours_175-200"],
+      ];
+      for (const [lo, hi, slug] of ranges) {
+        const li = document.createElement("li");
+        let badgeClass = "locked";
+        let badgeText = "Upcoming";
+        if (total >= hi) {
+          badgeClass = "done";
+          badgeText = "Complete";
+        } else if (total >= lo) {
+          badgeClass = "active";
+          badgeText = "In progress";
+        }
+        const pct = total >= hi ? 100 : total <= lo ? 0 : Math.round(((total - lo) / (hi - lo)) * 100);
+        li.innerHTML = `
+          <span class="badge ${badgeClass}">${badgeText}</span>
+          <span>${lo}–${hi} hrs (${pct}%)</span>
+          <a href="milestones/${slug}/summary.md" style="margin-left:auto;font-size:0.75rem;color:var(--accent)">Summary →</a>
+        `;
+        list.appendChild(li);
+      }
+    }
+
+    function renderLogTable() {
+      const tbody = document.getElementById("logTableBody");
+      const rows = withCumulative(state.entries).reverse();
+      tbody.innerHTML = "";
+      if (!rows.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="color:var(--muted);padding:1rem">No entries yet. Clock in or add hours manually.</td></tr>';
+        return;
+      }
+      for (const e of rows) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${e.date}</td>
+          <td class="hours">${e.hours}</td>
+          <td>${escapeHtml(e.description)}${e.source === "timer" ? ' <span style="color:var(--muted)">⏱</span>' : ""}</td>
+          <td class="hours">${e.cumulative}</td>
+          <td class="actions"><button type="button" class="btn-icon" data-delete="${e.id}">Delete</button></td>
+        `;
+        tbody.appendChild(tr);
+      }
+      tbody.querySelectorAll("[data-delete]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (confirm("Remove this entry?")) deleteEntry(btn.dataset.delete);
+        });
+      });
+    }
+
+    function escapeHtml(s) {
+      const d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function renderProgress() {
+      const total = totalHours();
+      const pct = Math.min(100, (total / GOAL_HOURS) * 100);
+      document.getElementById("totalDisplay").innerHTML = `${total.toFixed(1)} <span>/ ${GOAL_HOURS} hrs</span>`;
+      document.getElementById("remainingDisplay").textContent =
+        total >= GOAL_HOURS
+          ? "Goal reached!"
+          : `${(GOAL_HOURS - total).toFixed(1)} hours remaining`;
+      document.getElementById("mainProgressBar").style.width = `${pct}%`;
+      renderMilestones(total);
+    }
+
+    function renderWeek() {
+      const weekH = hoursThisWeek();
+      const goal = state.weeklyGoalHours || 10;
+      const weekPct = Math.min(100, (weekH / goal) * 100);
+      document.getElementById("weekHours").textContent = weekH.toFixed(1);
+      document.getElementById("weekGoalDisplay").textContent = goal;
+      document.getElementById("weekPercent").textContent = `${Math.round(weekPct)}%`;
+      document.getElementById("weekProgressBar").style.width = `${weekPct}%`;
+      document.getElementById("weeklyGoalInput").value = goal;
+      const { monday, sunday } = getWeekBounds();
+      document.getElementById("weekRangeLabel").textContent =
+        `Week of ${monday.toLocaleDateString(undefined, { month: "short", day: "numeric" })} – ${sunday.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}`;
+    }
+
+    function renderLinks() {
+      const nav = document.getElementById("repoLinks");
+      const base = window.location.href.replace(/\/[^/]*$/, "/");
+      const isPages = window.location.hostname.includes("github.io");
+      nav.innerHTML = "";
+      for (const f of REPO_FILES) {
+        const a = document.createElement("a");
+        if (isPages) {
+          const repoPath = window.location.pathname.replace(/\/$/, "").split("/").filter(Boolean);
+          const repoName = repoPath[repoPath.length - 1] || "";
+          const user = window.location.hostname.replace(".github.io", "");
+          a.href = `https://github.com/${user}/${repoName}/blob/main/${encodeURI(f.path)}`;
+          a.target = "_blank";
+        } else {
+          a.href = new URL(f.path, base).href;
+        }
+        a.textContent = f.label;
+        nav.appendChild(a);
+      }
+    }
+
+    function getTimerElapsedMs() {
+      const t = state.timer;
+      let ms = t.accumulatedMs || 0;
+      if (t.running && !t.paused && t.startedAt) {
+        ms += Date.now() - t.startedAt;
+      }
+      return ms;
+    }
+
+    function formatTimer(ms) {
+      const s = Math.floor(ms / 1000);
+      const h = Math.floor(s / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      return [h, m, sec].map((n) => String(n).padStart(2, "0")).join(":");
+    }
+
+    function updateTimerDisplay() {
+      const el = document.getElementById("timerDisplay");
+      const ms = getTimerElapsedMs();
+      el.textContent = formatTimer(ms);
+      el.classList.toggle("running", state.timer.running && !state.timer.paused);
+      document.getElementById("timerDescription").value = state.timer.description || "";
+      document.getElementById("btnClockIn").disabled = state.timer.running;
+      document.getElementById("btnPause").disabled = !state.timer.running;
+      document.getElementById("btnPause").textContent = state.timer.paused ? "Resume" : "Pause";
+      document.getElementById("btnClockOut").disabled = !state.timer.running && ms < 60000;
+      const hint = document.getElementById("timerStateHint");
+      if (!state.timer.running && ms === 0) hint.textContent = "Not clocked in";
+      else if (state.timer.paused) hint.textContent = "Paused — resume or clock out to log";
+      else if (state.timer.running) hint.textContent = "Clocked in — time is counting";
+      else hint.textContent = "Ready to log session";
+    }
+
+    function startTick() {
+      if (tickInterval) clearInterval(tickInterval);
+      tickInterval = setInterval(updateTimerDisplay, 1000);
+    }
+
+    function clockIn() {
+      state.timer = {
+        running: true,
+        paused: false,
+        startedAt: Date.now(),
+        accumulatedMs: 0,
+        description: document.getElementById("timerDescription").value.trim(),
+      };
+      saveState(state);
+      updateTimerDisplay();
+      startTick();
+    }
+
+    function togglePause() {
+      const t = state.timer;
+      if (!t.running) return;
+      if (t.paused) {
+        t.paused = false;
+        t.startedAt = Date.now();
+      } else {
+        t.accumulatedMs = getTimerElapsedMs();
+        t.paused = true;
+        t.startedAt = null;
+      }
+      saveState(state);
+      updateTimerDisplay();
+    }
+
+    function clockOut() {
+      const desc = document.getElementById("timerDescription").value.trim();
+      if (!desc) {
+        alert("Add a short description of what you worked on before clocking out.");
+        return;
+      }
+      const ms = getTimerElapsedMs();
+      if (ms < 60000) {
+        if (!confirm("Session is under 1 minute. Log anyway?")) return;
+      }
+      const hours = roundHours(ms / 3600000);
+      const today = formatDateISO(new Date());
+      addEntry(today, Math.max(hours, 0.02), desc, "timer");
+      state.timer = { running: false, paused: false, startedAt: null, accumulatedMs: 0, description: "" };
+      saveState(state);
+      updateTimerDisplay();
+      showSyncBanner("Session logged. Download or copy CSV to back up to the repo.", false);
+    }
+
+    function render() {
+      renderProgress();
+      renderWeek();
+      renderLogTable();
+      updateTimerDisplay();
+    }
+
+    document.getElementById("btnClockIn").addEventListener("click", clockIn);
+    document.getElementById("btnPause").addEventListener("click", togglePause);
+    document.getElementById("btnClockOut").addEventListener("click", clockOut);
+    document.getElementById("timerDescription").addEventListener("input", (e) => {
+      state.timer.description = e.target.value;
+      saveState(state);
+    });
+
+    document.getElementById("btnManualLog").addEventListener("click", () => {
+      const date = document.getElementById("manualDate").value;
+      const hours = document.getElementById("manualHours").value;
+      const desc = document.getElementById("manualDesc").value;
+      if (!date) {
+        alert("Pick a date.");
+        return;
+      }
+      if (!addEntry(date, hours, desc, "manual")) {
+        alert("Enter hours and a description.");
+        return;
+      }
+      document.getElementById("manualDesc").value = "";
+      showSyncBanner("Entry added locally. Export CSV when ready to sync the repo.", false);
+    });
+
+    document.getElementById("btnSaveGoal").addEventListener("click", () => {
+      const v = parseFloat(document.getElementById("weeklyGoalInput").value);
+      if (v > 0) {
+        state.weeklyGoalHours = v;
+        saveState(state);
+        renderWeek();
+      }
+    });
+
+    document.getElementById("btnExportCsv").addEventListener("click", downloadCsv);
+    document.getElementById("btnCopyCsv").addEventListener("click", copyCsv);
+    document.getElementById("btnImportCsv").addEventListener("click", importFromRepo);
+
+    document.getElementById("manualDate").value = formatDateISO(new Date());
+
+    renderLinks();
+    render();
+    startTick();
+
+    if (state.timer.running) startTick();
+
+    importFromRepo().catch(() => {
+      showSyncBanner("Running offline or hours.csv not found. Local storage is your source of truth.", true);
+    });
+  </script>
+</body>
+</html>
