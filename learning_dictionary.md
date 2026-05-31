@@ -29,6 +29,10 @@ Visual Studio (or the .NET SDK) needs the **.NET MAUI** workload and related too
 - **Encountered:** 2026-05-28 — installed/downloaded what LexiQuest needed, then got the app running
 - **Notes:** First successful local run; spent time exploring the running app
 
+### MAUI on Mac vs Windows (LexiQuest)
+On Mac, LexiQuest may run the **UI only** while full app/package setup can fail on other machines (e.g. HP with package install issues). Platform and workload differences matter for what actually builds and runs locally.
+- **Encountered:** 2026-05-31 — HP packages did not work; UI ran on Mac; may need supervisor guidance for full Mac support
+
 ---
 
 ## Git & GitHub

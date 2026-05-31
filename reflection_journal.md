@@ -13,6 +13,9 @@ Entries are lightly edited for spelling and grammar — your voice is kept intac
 ---
 
 <!-- ENTRIES BELOW — newest at the top -->
+## Entry — 2026-05-31 | Hours 2.67–3.65
+Today I spent a little while trying to get my HP computer running with the packages—it didn't really work. I was finally able to get just the UI running on Mac. I might need to talk to Devin to see if there's a way to get the full app running on Mac. I did make some changes and tested against the previous version, so everything should be good. I added the setting bar—I added more of the setting bar at the top and removed one from the bottom so it's clean and easy to see.
+
 ## Entry — 2026-05-28 | Hours 2.17–2.67
 I spent another thirty minutes today trying to get my internship tracker website set up on GitHub Pages. This site matters for my internship because I need a reliable way to track my hours and log my experiences as I go. Getting Pages working—workflow, branch settings, and deployment—counts as real internship work too, not just a side project.
 
