@@ -13,6 +13,18 @@ Entries are lightly edited for spelling and grammar — your voice is kept intac
 ---
 
 <!-- ENTRIES BELOW — newest at the top -->
+## Entry — 2026-06-05 | Hours 6.45–7.45
+One thing I'm noticing is that even though I'm spending time on this, it seems like I'm not doing much, because it just takes time to understand the problem—it takes time for AI to do stuff. I was also trying to set up and test my app to make sure it was working correctly. So I'm in a good spot today, and I was able to do a few things: I got my app working so my voice recognition works, and I started making a document of the errors that can be reproduced.
+
+## Entry — 2026-06-04 | Hours 5.78–6.45
+I talked with Devin and received a new task—I'm trying to fix the library and the reading things. I set up an agent in the code to help me understand and learn. This will be good for tracking my progress, so that's what I did.
+
+## Entry — 2026-06-03 | Hours 3.78–5.78
+I've been trying to get my app working, which I thought was working alright, but I talked to Devin and realized that some of the functionality on the Mac isn't working properly. He is dealing with Windows and I'm dealing with Mac, so it's a little bit different. The main problem for me was the phonics and the sounds—for example, I couldn't see the video page, the sound page, or the story page. Eventually, after tinkering around, I got Cursor to fix that for me. I didn't make changes to the code though. It's been a little bit confusing for me to try to test it and make sure my changes are working for everything, not just Mac, so I'm curious about how I'm going to do that—I'm feeling a little bit weird about it.
+
+## Entry — 2026-06-02 | Hours 3.65–3.78
+Today I pushed my changes for the UI development. I also told Devon and let him know about my changes, as well as my situation with the Mac. I'm going to be trying to figure out how to get it to run, possibly by storing data.
+
 ## Entry — 2026-05-31 | Hours 2.67–3.65
 Today I spent a little while trying to get my HP computer running with the packages—it didn't really work. I was finally able to get just the UI running on Mac. I might need to talk to Devin to see if there's a way to get the full app running on Mac. I did make some changes and tested against the previous version, so everything should be good. I added the setting bar—I added more of the setting bar at the top and removed one from the bottom so it's clean and easy to see.
 

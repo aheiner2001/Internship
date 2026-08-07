@@ -3,3 +3,8 @@ Date,Hours,Description,Cumulative Total
 2026-05-28,1.17,"Accessed LexiQuest on GitHub, installed project tools, got the app running, experimented with the app",2.17
 2026-05-28,0.5,Set up internship tracker website and GitHub Pages deployment,2.67
 2026-05-31,0.98,"LexiQuest: UI running on Mac; settings bar moved to top, removed duplicate from bottom; tested against previous version",3.65
+2026-06-02,0.13,"Pushed LexiQuest UI development changes; told Devon about UI changes and Mac full-app situation",3.78
+2026-06-03,2,"LexiQuest Mac debugging: phonics/sounds, video/sound/story pages; talked with Devin (Mac vs Windows); Cursor-assisted fixes without own code edits; cross-platform testing",5.78
+2026-06-04,0.67,"Talked with Devin, received new task (fix library and reading); set up Cursor agent in codebase to understand, learn, and track progress",6.45
+2026-06-05,1,"Library/reading task: understood problem with Cursor agent, set up and tested app; voice recognition working; started reproducible-errors document",7.45
+2026-06-05,0.75,Ran tests on speech recognition (LexiQuest),8.2
