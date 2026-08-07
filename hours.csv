@@ -8,3 +8,5 @@ Date,Hours,Description,Cumulative Total
 2026-06-04,0.67,"Talked with Devin, received new task (fix library and reading); set up Cursor agent in codebase to understand, learn, and track progress",6.45
 2026-06-05,1,"Library/reading task: understood problem with Cursor agent, set up and tested app; voice recognition working; started reproducible-errors document",7.45
 2026-06-05,0.75,Ran tests on speech recognition (LexiQuest),8.2
+2026-06-06,3,"LexiQuest: continued debugging attempts; talked with Devin, learned project focus is shifting to a new website project for Devin's page",11.2
+2026-06-06,2.5,"New website project: reviewed scope and design with Devin; built initial React framework, determined switch to HTML/CSS/JS needed; set up test Discord server",13.7
