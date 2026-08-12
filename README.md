@@ -1,26 +1,16 @@
 # Internship Tracker
-
 **Goal:** 200 hours | **Started:** 2025  
-**Progress:** `░░░░░░░░░░░░░░░░░░░░` 8.2 / 200 hours
-
+**Progress:** `██░░░░░░░░░░░░░░░░░░` 21.7 / 200 hours
 ---
-
 ## Web tracker (GitHub Pages)
-
 **Live site:** [https://aheiner2001.github.io/Internship/](https://aheiner2001.github.io/Internship/)
-
 Open **[index.html](./index.html)** locally, or use GitHub Pages:
-
 1. **Settings → Pages → Build and deployment → Source:** choose **GitHub Actions** (not “Deploy from branch”).
 2. Push to the **`master`** branch — the workflow [`.github/workflows/static.yml`](./.github/workflows/static.yml) deploys `index.html` automatically.
 3. After a green run under **Actions**, wait 1–2 minutes, then open the URL above.
-
 The dashboard keeps hours in **browser localStorage**, syncs from **`hours.csv`** on load, and lets you **download or copy CSV** to commit back to this repo as your backup.
-
 ---
-
 ## Quick Links
-
 | File | Purpose |
 |------|---------|
 | [Web dashboard](./index.html) | Stopwatch, weekly goals, milestones, hour log |
@@ -28,11 +18,8 @@ The dashboard keeps hours in **browser localStorage**, syncs from **`hours.csv`*
 | [Reflection Journal](./reflection_journal.md) | Personal reflections, cleaned up |
 | [Learning Dictionary](./learning_dictionary.md) | Concepts & tools by technology |
 | [Agent Instructions](./AGENT_INSTRUCTIONS.md) | How to use this system with Claude |
-
 ---
-
 ## Milestones
-
 | Range | Status | Summary |
 |-------|--------|---------|
 | [Hours 0–25](./milestones/hours_0-25/summary.md) | 🔄 In progress | |
@@ -43,36 +30,28 @@ The dashboard keeps hours in **browser localStorage**, syncs from **`hours.csv`*
 | [Hours 125–150](./milestones/hours_125-150/summary.md) | ⬜ Not started | |
 | [Hours 150–175](./milestones/hours_150-175/summary.md) | ⬜ Not started | |
 | [Hours 175–200](./milestones/hours_175-200/summary.md) | ⬜ Not started | |
-
 ---
-
 ## Technologies & Tools
-
 | Tool | Docs / Links | Notes |
 |------|-------------|-------|
 | .NET MAUI | [LexiQuest Repo](https://github.com/degasolutions/LexiQuest) | Cross-platform app framework |
 | Google Antigravity CLI | [Install](https://antigravity.google/product/antigravity-cli) · [Dev Program](https://developers.google.com/program) | Free plan, resets every 4 hrs |
 | Visual Studio | — | Needs MAUI add-on |
 | Slack | — | Main communication with supervisor |
-
+| Discord | — | New website project; form submissions integrated with server via bot |
+| AnswerOverflow | — | Syncs Discord forum threads to the website; needed localhost dev mode to see threads |
+| AWS | — | Planned integration to host the form/site publicly |
 ---
-
 ## How-To Notes
 _Tricky processes, step-by-step guides added as I go._
-
 | Topic | File | Added |
 |-------|------|-------|
 | _(none yet)_ | | |
-
 ---
-
 ## Weekly Log
 _Links to notable entries or summaries by week._
-
 | Week | Dates | Highlights |
 |------|-------|-----------|
 | Week 1 | | |
-
 ---
-
 _This README is maintained by the internship tracking agent. See [AGENT_INSTRUCTIONS.md](./AGENT_INSTRUCTIONS.md) to learn how to use it._
