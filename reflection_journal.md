@@ -13,6 +13,16 @@ Entries are lightly edited for spelling and grammar — your voice is kept intac
 ---
 
 <!-- ENTRIES BELOW — newest at the top -->
+## Entry — 2026-08-12 | Hours 20.2–21.7
+Today I was able to completely finish the integration. I worked for an hour and a half this morning.
+
+## Entry — 2026-08-11 | Hours 13.7–20.2
+Yesterday I worked for six and a half hours, and I spent a lot of time trying different things. One thing I really like — and something I'll always have to remember about software development — is that it takes a lot of debugging. You have a problem and an idea, you implement it, and then you test it until it works. That was what I did yesterday. I worked hard on getting the form page to work, and as part of that I set up Discord and contacted Devin a couple of times to get permissions and admin access, so now I know exactly what to do.
+
+I'm using AI to help me integrate this. For the forum piece, I connected AnswerOverflow, which took me a while to understand — I wasn't seeing the threads show up on localhost. The AI helped me realize I needed to go into a certain developer mode on localhost to get it working. Now everything runs on localhost, so when I submit something in Discord it automatically shows up on the website, which is pretty cool, and people can join the Discord from there. I also added the Discord invite section — instead of showing my name, it now shows Devin's name, so people can find things through his invite.
+
+I asked Devin if he needed me to start working on the AWS integration so the form is accessible online.
+
 ## Entry — 2026-06-05 | Hours 6.45–7.45
 One thing I'm noticing is that even though I'm spending time on this, it seems like I'm not doing much, because it just takes time to understand the problem—it takes time for AI to do stuff. I was also trying to set up and test my app to make sure it was working correctly. So I'm in a good spot today, and I was able to do a few things: I got my app working so my voice recognition works, and I started making a document of the errors that can be reproduced.
 
