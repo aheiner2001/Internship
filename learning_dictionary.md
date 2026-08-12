@@ -101,4 +101,111 @@ A file listing paths Git should not track or push—used here to keep **LexiQues
 
 ---
 
+## Discord (Realm website project)
+
+### Discord server setup & permissions
+Devin's website (**Realm**) uses a Discord server as its community/forum backend. Getting admin/**Manage Server** permissions from Devin was the first step before any bot or channel config could happen.
+- **Encountered:** 2026-08-11 — contacted Devin a couple of times to get permissions and admin access on the Discord server
+- **What worked:** Ask the server owner directly for **Manage Server** permission — it's required later to configure channels in the AnswerOverflow dashboard.
+
+### Discord bot (Realm Bot)
+A bot that must be invited to the server and stay online/connected in order for indexing and real-time sync (Discord → website) to work at all.
+- **Encountered:** 2026-08-11 — confirmed working when local terminal logs showed `Logged in as Realm Bot`
+- **What worked:** Keep the dev process (`bun dev`) running continuously; indexing only happens while the bot is connected. If you restart, wait for the "Logged in" message again before testing.
+
+### Discord invite links (branded)
+The invite section on the website can be configured to point to a specific server/owner identity rather than a generic one.
+- **Encountered:** 2026-08-11 — changed the invite section so it shows **Devin's name** instead of the intern's, so visitors join the right community under the right identity.
+
+---
+
+## AnswerOverflow (self-hosted forum sync)
+
+### What is AnswerOverflow?
+A tool that indexes Discord forum-channel threads into a database and republishes them as a searchable, public web archive — used here to power the `/forum` page on Devin's website.
+- **Encountered:** 2026-08-11 — connected AnswerOverflow to sync Discord threads to the site
+
+### Local vs. hosted AnswerOverflow (important distinction)
+Running AnswerOverflow locally (`localhost:3000`) spins up **your own empty Convex database** — it does **not** pull in threads from the public [answeroverflow.com](https://www.answeroverflow.com) site. Seeing "0 messages / 0 threads" on localhost is expected until your **local bot indexes Discord into your local DB**.
+- **Encountered:** 2026-08-11/12 — confused at first by an empty local forum vs. the populated public site; these are two separate deployments/databases.
+
+### Localhost developer mode (why threads weren't showing)
+Threads didn't appear on localhost until a specific developer mode was enabled — this was the key blocker before things started working.
+- **Encountered:** 2026-08-11 — AI helped identify that a developer-mode setting on localhost was required to see synced threads
+- **What worked:** Enable the relevant local/developer mode, then confirm indexing against the correct URLs (not the Convex admin page).
+
+### Correct local URLs to use
+- **Public archive** (what `/forum` embeds): `http://localhost:3000/c/<channel-id>`
+- **Operator dashboard**: `http://localhost:3000/dashboard/<channel-id>`
+- **Do NOT use** `http://127.0.0.1:3210` — that's Convex's raw DB admin page, not the forum.
+- **Encountered:** 2026-08-12 — clarified after initial confusion about which local port/page was the real forum output.
+
+### Enabling indexing per channel
+Indexing must be turned on **per forum channel** in the AnswerOverflow dashboard (Dashboard → Channels → toggle **Indexing Enabled**). Regular text channels should stay off.
+- **What worked:** Only enable indexing on the specific forum channels Devin wants public (e.g. tutorials, help, bug reports).
+- **Gotcha:** The bot also needs **View Channel** and **Read Message History** permissions on that channel, or indexing silently skips it.
+
+### Indexing timing (bulk vs. real-time)
+- **Bulk/historical** indexing runs on a scheduled job roughly every 6 hours (not instant).
+- AnswerOverflow's own UI estimate ("backfill in 1–2 days") is conservative/optimistic messaging, not a hard rule.
+- **New** forum posts should sync closer to real-time, but only if indexing is ON for that channel and the bot is online.
+- **What worked:** Test with a **new** forum post in an indexed channel rather than waiting on old/historical threads.
+
+### PostHog analytics errors (safe to ignore locally)
+The dashboard's page-view/invite-click charts call PostHog for analytics. Locally this throws `PostHog ApiKey is required`, showing as "Sorry, we encountered an error loading the data."
+- **Encountered:** 2026-08-11/12 — this error is cosmetic for local dev and does **not** block thread indexing or the public forum page. No action needed unless analytics themselves are required.
+
+### Disk space as a hidden blocker
+Convex and Turbopack can fail to write (and fail **silently**) if local disk space is low, which can look like an indexing bug.
+- **What worked:** Keep several GB free locally before debugging further indexing issues.
+
+### End-to-end "what working looks like" checklist
+1. `bun dev` running, bot logged in (see "Logged in as Realm Bot" in terminal)
+2. Target forum channels have **Indexing Enabled** ON in the dashboard
+3. New forum post created in one of those channels
+4. `localhost:3000/c/<channel-id>` shows the thread (minutes for real-time, hours for bulk history)
+5. `localhost:5173/forum/` shows the same content in the embedded iframe
+- **Encountered:** 2026-08-12 — used this checklist to confirm the integration was fully working before reporting it done.
+
+---
+
+## AWS
+
+### Planned integration (not started yet)
+Discussed with Devin as the next step to make the form/site publicly accessible online (rather than only running on localhost).
+- **Encountered:** 2026-08-11 — asked Devin whether to start AWS integration; not yet begun.
+
+---
+
 <!-- ADD NEW TECHNOLOGIES BELOW THIS LINE -->
+
+AnswerOverflow (self-hosted forum sync)
+Gotchas & Root Causes: Port Collisions & Disk Space
+Multiple instances of `bun dev` can collide on ports 3000 and 3210[cite: 1]. If Next.js jumps to port 3001 while the iframe expects 3000, or if Convex fails to bind to port 3210, the app returns errors[cite: 1]. Additionally, low disk space (`No space left on device`) can cause silent writes or Next.js compile failures (e.g., returning 500 or hard 404 errors)[cite: 1].
+
+What worked: Kill all conflicting `bun` processes (`lsof -nP -iTCP:3000` / `3210`), free up a few GB of disk space, clear `.next` cache (`rm -rf apps/main-site/.next`), and restart a single clean `bun dev` stack[cite: 1].
+
+Server Permission Hierarchy for Dashboard Access
+Answer Overflow only displays a server in the user dashboard if the user is the Owner, an Administrator, or has the **Manage Server** permission (labeled "Manage Guild" in AO's UI)[cite: 1]. A standard "Moderator" role without Manage Server will cause the server to stay hidden[cite: 1].
+
+What worked: Ensure the server owner grants "Manage Server" or adds the Moderator role as a "Dashboard Role" under AO settings[cite: 1]. Then sign out and sign back in with Discord to refresh permissions[cite: 1].
+
+Forum Channels vs. Text Channels Indexing
+AO is optimized for **forum channels** (used for tutorials, help requests, bug reports)[cite: 1]. While text channels can be indexed with threads enabled, text chat streams tend to cause noise and low-quality website feeds[cite: 1].
+
+What worked: Explicitly turn **Indexing Enabled ON** only for specific forum channels in the dashboard, and leave text channels turned OFF[cite: 1].
+
+Local DB vs. Hosted Database Isolation
+Running AO locally (`localhost:3000`) communicates with a **local Convex database** (`127.0.0.1:3210`), which is completely isolated from the production `answeroverflow.com` database[cite: 1]. Content existing on `answeroverflow.com` does not automatically backfill into local dev[cite: 1].
+
+What worked: Confirm indexing against the correct local community URL (`http://localhost:3000/c/<channel-id>`) rather than expecting hosted data to appear locally[cite: 1].
+
+Disabling Next.js Local Dev Indicators for Clean Embeds
+When embedding local Next.js applications into static pages via iframes, the Next.js dev tools badge ("N" / Issues indicator in the bottom-left) can overlay the UI[cite: 1].
+
+What worked: Set `devIndicators: false` in `next.config.js` to hide local dev indicators and keep iframe embeds clean[cite: 1].
+
+GitHub Pages vs. Localhost Iframe Limitations
+Static sites deployed via GitHub Pages cannot display embedded content referencing `http://localhost:3000` because end-users cannot reach the local machine, and HTTPS pages block insecure HTTP embeds[cite: 1].
+
+What worked: Use `localhost` exclusively for local development[cite: 1]. For production/GitHub Pages, update the iframe `src` to point to a publicly accessible, hosted domain or reverse proxy[cite: 1].
